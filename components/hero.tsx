@@ -19,7 +19,7 @@ const { personalInfo } = portfolioData;
 const heroTabs: TabContent[] = [
   {
     label: "intro",
-    command: `npx ${personalInfo.name.toLowerCase().replace(" ", "-")} --intro`,
+    command: `cat ${personalInfo.name.toLowerCase().replace(" ", "-") + "-intro.md"}`,
     lines: [
       { text: " ", delay: 100 },
       {
@@ -56,13 +56,16 @@ export function Hero() {
       id="about"
       className="relative h-[85vh] flex items-center justify-center overflow-hidden border-b border-border bg-background"
     >
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-accent/20 blur-[120px] rounded-full opacity-30 select-none pointer-events-none" />
+      {/* Intensified Primary Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[700px] bg-primary/20 blur-[130px] rounded-full opacity-60 select-none pointer-events-none animate-pulse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-primary/25 blur-[90px] rounded-full opacity-40 select-none pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-primary/30 blur-[60px] rounded-full opacity-30 select-none pointer-events-none" />
 
       <div className="relative w-full max-w-5xl px-6">
         <TerminalAnimationRoot
           tabs={heroTabs}
           defaultActiveTab={0}
+          hideCursorOnComplete={false}
           className="shadow-2xl rounded-xl overflow-hidden border border-white/5 bg-black/40 backdrop-blur-3xl"
         >
           <TerminalAnimationWindow className="bg-transparent min-h-[380px] sm:min-h-[450px]">
@@ -87,7 +90,7 @@ export function Hero() {
                   ~/{personalInfo.name.split(" ")[0].toLowerCase()}
                 </span>
                 <span className="text-neutral-600">on</span>
-                <span className="text-purple-400"> main</span>
+                <span className="text-purple-400">main</span>
               </div>
 
               <TerminalAnimationCommandBar className="text-neutral-100 text-lg sm:text-2xl font-bold tracking-tight" />

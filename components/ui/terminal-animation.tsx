@@ -603,7 +603,9 @@ export function TerminalAnimationCommandBar({
   const { commandTyped, isTypingCommand, showCursor } =
     useTerminalAnimationContext()
 
-  const defaultCursor = <span aria-hidden="true">▌</span>
+  const defaultCursor = (
+    <TerminalAnimationBlinkingCursor className="bg-neutral-100 h-[1.2em] w-[0.6em] translate-y-[0.1em]" />
+  )
 
   return (
     <div
@@ -612,7 +614,7 @@ export function TerminalAnimationCommandBar({
       {...props}
     >
       {commandTyped}
-      {isTypingCommand && showCursor && (cursor ?? defaultCursor)}
+      {showCursor && (cursor ?? defaultCursor)}
     </div>
   )
 }

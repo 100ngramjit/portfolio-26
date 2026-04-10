@@ -24,9 +24,10 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="relative group max-w-6xl mx-auto">
-          {/* Decorative Glow */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-accent/20 to-violet-500/20 rounded-[2rem] blur-3xl opacity-50 group-hover:opacity-75 transition duration-500 pointer-events-none" />
+        <div className="relative group max-w-6xl mx-auto hidden md:block">
+          {/* Primary Decorative Glow */}
+          <div className="absolute -inset-10 bg-primary/20 rounded-[3rem] blur-[100px] opacity-40 group-hover:opacity-60 transition duration-700 pointer-events-none" />
+          <div className="absolute -inset-4 bg-gradient-to-br from-primary/30 to-background/0 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-75 transition duration-500 pointer-events-none" />
 
           <BrowserWindow
             size="xl"
@@ -106,24 +107,6 @@ export function Projects() {
 
               {/* Main Content Area */}
               <div className="flex-1 flex flex-col relative min-w-0">
-                {/* Mobile Project Switcher - Tab Style */}
-                <div className="md:hidden flex items-center border-b border-border bg-muted/10 p-2 overflow-x-auto gap-1.5 no-scrollbar scroll-px-4">
-                  {projects.map((p, i) => (
-                    <button
-                      key={p.title}
-                      onClick={() => setActiveIndex(i)}
-                      className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold transition-all whitespace-nowrap ${
-                        i === activeIndex
-                          ? "bg-primary text-primary-foreground shadow-sm"
-                          : "bg-background/80 text-muted-foreground hover:bg-background border border-border"
-                      }`}
-                    >
-                      <span className="scale-75">{p.icon}</span>
-                      {p.title}
-                    </button>
-                  ))}
-                </div>
-
                 {/* Preview Frame */}
                 <div className="flex-1 relative bg-muted/5">
                   <iframe
@@ -144,58 +127,90 @@ export function Projects() {
           </BrowserWindow>
         </div>
 
-        {/* Mobile Info - Detailed View under the browser */}
-        <div className="mt-12 md:hidden space-y-6 max-w-2xl mx-auto">
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xl overflow-hidden relative group">
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              {activeProject.icon}
-            </div>
-            
-            <div className="relative">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="bg-accent/10 text-accent text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider font-mono">
-                  {activeProject.subtitle}
-                </span>
-              </div>
-              
-              <h3 className="text-3xl font-black mb-4 tracking-tight">
-                {activeProject.title}
-              </h3>
-              
-              <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
-                {activeProject.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2 mb-8">
-                {activeProject.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-2.5 py-1 rounded-lg text-[10px] bg-muted/50 text-muted-foreground font-bold border border-border/50"
-                  >
-                    #{tag.toUpperCase()}
-                  </span>
-                ))}
-              </div>
-              
-              <div className="flex gap-3">
-                <a
-                  href={activeProject.link}
-                  target="_blank"
-                  className="flex-[2] h-12 flex items-center justify-center gap-2 bg-foreground text-background rounded-2xl font-bold transition-transform active:scale-95"
-                >
-                  Live Preview <ExternalLink className="w-4 h-4" />
-                </a>
-                {activeProject.github && (
+        {/* Mobile View - Horizontal Scrollable Cards */}
+        <div className="md:hidden mt-4">
+          <div 
+            className="flex overflow-x-auto pb-12 gap-5 snap-x snap-mandatory no-scrollbar px-4 -mx-4"
+            onScroll={(e) => {
+              const target = e.currentTarget;
+              const scrollPosition = target.scrollLeft;
+              const cardWidth = target.offsetWidth * 0.85 + 20; // 85vw + gap
+              const nextIndex = Math.round(scrollPosition / cardWidth);
+              if (nextIndex !== activeIndex && nextIndex >= 0 && nextIndex < projects.length) {
+                setActiveIndex(nextIndex);
+              }
+            }}
+          >
+            {projects.map((project, i) => (
+              <div
+                key={i}
+                className="min-w-[85vw] snap-center p-6 rounded-[2.5rem] border border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl overflow-hidden relative group flex flex-col"
+              >
+                <div className="absolute top-0 right-0 p-6 opacity-10 scale-150 rotate-12">
+                  {project.icon}
+                </div>
+
+                <div className="relative flex-1">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="bg-primary/10 text-primary text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-[0.2em] font-mono border border-primary/20">
+                      {project.subtitle}
+                    </span>
+                  </div>
+
+                  <h3 className="text-3xl font-black mb-4 tracking-tighter text-foreground">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-muted-foreground leading-relaxed mb-6 text-sm line-clamp-4">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1.5 rounded-xl text-[10px] bg-muted/30 text-muted-foreground font-bold border border-border/30 backdrop-blur-sm"
+                      >
+                        {tag.toUpperCase()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-auto pt-4 relative">
                   <a
-                    href={activeProject.github}
+                    href={project.link}
                     target="_blank"
-                    className="flex-1 h-12 flex items-center justify-center border border-border rounded-2xl font-bold text-foreground transition-transform active:scale-95 bg-background"
+                    rel="noopener noreferrer"
+                    className="flex-[2] h-14 flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-2xl font-bold transition-all active:scale-95 shadow-lg shadow-primary/20"
                   >
-                    <Github className="w-5 h-5" />
+                    Live Preview <ExternalLink className="w-4 h-4" />
                   </a>
-                )}
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 h-14 flex items-center justify-center border border-border/50 rounded-2xl font-bold text-foreground transition-all active:scale-95 bg-muted/20 backdrop-blur-md"
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
+
+          {/* Pagination Indicators for Mobile */}
+          <div className="flex justify-center gap-1.5 mt-2">
+            {projects.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
