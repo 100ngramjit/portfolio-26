@@ -283,10 +283,10 @@ export function BrowserWindow({
 
   const themeClasses =
     theme === "dark"
-      ? "bg-background/40 backdrop-blur-2xl border-white/10"
+      ? "liquid-glass-dark"
       : theme === "light"
-        ? "bg-background/40 backdrop-blur-2xl border-black/10"
-        : "bg-background/40 backdrop-blur-2xl border-foreground/10"
+        ? "liquid-glass"
+        : "liquid-glass"
 
   const getHeaderStyles = () => {
     const baseStyles =
@@ -310,7 +310,8 @@ export function BrowserWindow({
         ${sizeClasses[size]} ${themeClasses} ${className} flex flex-col
       `}
     >
-      <div className={getHeaderStyles()}>
+      <div className={cn(getHeaderStyles(), "relative overflow-hidden")}>
+        <div className="absolute inset-0 animate-liquid pointer-events-none opacity-50" />
         <WindowControls
           variant={variant === "generic" ? "macos" : variant}
           headerStyle={headerStyle}

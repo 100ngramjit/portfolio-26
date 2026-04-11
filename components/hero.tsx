@@ -54,7 +54,7 @@ export function Hero() {
   return (
     <section
       id="about"
-      className="relative h-[85vh] flex items-center justify-center overflow-hidden border-b border-border bg-background"
+      className="relative min-h-screen pt-32 pb-20 flex items-center justify-center overflow-hidden border-b border-border bg-background"
     >
       {/* Intensified Primary Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[700px] bg-primary/20 blur-[130px] rounded-full opacity-60 select-none pointer-events-none animate-pulse" />
@@ -76,7 +76,7 @@ export function Hero() {
                 <div className="size-3 rounded-full bg-yellow-500/80 shadow-[0_0_8px_rgba(234,179,8,0.4)]" />
                 <div className="size-3 rounded-full bg-green-500/80 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
               </div>
-              <div className="text-[10px] sm:text-xs font-mono text-muted-foreground uppercase tracking-widest opacity-50">
+              <div className="text-[10px] sm:text-xs font-doto text-muted-foreground uppercase tracking-widest opacity-50">
                 {personalInfo.name.toLowerCase().replace(" ", "-")} — zsh —
                 112×36
               </div>
@@ -103,7 +103,7 @@ export function Hero() {
                   if (line.text.startsWith("TITLE:")) {
                     const text = line.text.replace("TITLE:", "");
                     return (
-                      <h1 className="text-2xl sm:text-5xl font-bold tracking-tighter text-neutral-100 leading-[1.1] text-balance">
+                      <h1 className="text-2xl sm:text-5xl font-black tracking-tighter text-neutral-100 leading-[1.1] font-doto">
                         {text.split(" ").map((word, i) => (
                           <span
                             key={i}
@@ -184,7 +184,7 @@ export function Hero() {
                   <TerminalAnimationTabTrigger
                     key={tab.label}
                     index={index}
-                    className="flex-1 px-2 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.2em] font-mono transition-all data-[state=active]:bg-white/10 data-[state=active]:text-foreground data-[state=active]:font-bold text-neutral-600 hover:text-neutral-400 hover:bg-white/5 rounded-xl"
+                    className="flex-1 px-2 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.2em] font-doto transition-all data-[state=active]:bg-white/10 data-[state=active]:text-white data-[state=active]:font-bold text-foreground hover:text-neutral-400 hover:bg-white/5 rounded-xl"
                   >
                     {tab.label}
                   </TerminalAnimationTabTrigger>

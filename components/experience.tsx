@@ -6,7 +6,7 @@ export function Experience() {
   return (
     <section id="experience" className="border-b border-border bg-secondary/30">
       <div className="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
-        <h2 className="mb-16 text-3xl md:text-5xl font-bold tracking-tight">
+        <h2 className="mb-16 text-3xl md:text-5xl font-bold tracking-tight font-doto">
           Professional Experience
         </h2>
 
@@ -18,7 +18,7 @@ export function Experience() {
             >
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-primary">
+                  <h3 className="text-2xl font-bold text-primary font-doto">
                     {exp.role}
                   </h3>
                   <a
@@ -30,7 +30,7 @@ export function Experience() {
                     {exp.company}
                   </a>
                 </div>
-                <span className="text-sm font-mono text-muted-foreground bg-muted px-3 py-1 rounded-full mt-2 md:mt-0 self-start">
+                <span className="text-sm font-doto text-foreground bg-muted px-3 py-1 rounded-full mt-2 md:mt-0 self-start">
                   {exp.period}
                 </span>
               </div>

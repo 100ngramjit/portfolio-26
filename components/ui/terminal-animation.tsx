@@ -495,6 +495,7 @@ export function TerminalAnimationWindow({
   minHeight,
   animateOnVisible = true,
   style,
+  children,
   ...props
 }: TerminalAnimationWindowProps) {
   const windowRef = useRef<HTMLDivElement>(null)
@@ -521,7 +522,7 @@ export function TerminalAnimationWindow({
     <div
       className={cn(
         windowClasses,
-        !backgroundColor && "bg-background/40 backdrop-blur-2xl border border-foreground/10",
+        !backgroundColor && "liquid-glass-dark",
         animateOnVisible &&
           "transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]",
         animateOnVisible && !hasAnimated && "translate-y-64",
@@ -537,7 +538,10 @@ export function TerminalAnimationWindow({
           : { minHeight, ...style }
       }
       {...props}
-    />
+    >
+      <div className="absolute inset-x-0 top-0 h-10 animate-liquid pointer-events-none opacity-30 z-10" />
+      {children}
+    </div>
   )
 }
 

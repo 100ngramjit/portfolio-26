@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { portfolioData } from "@/lib/data";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
     { label: "About", href: "#about" },
@@ -14,12 +23,30 @@ export function Header() {
     { label: "Skills", href: "#skills" },
   ];
 
+  const scrollToTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-8">
+    <header
+      className={`fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl transition-all duration-500 ease-in-out ${
+        scrolled ? "top-4" : "top-6"
+      }`}
+    >
+      <nav
+        className={`flex items-center justify-between px-6 transition-all duration-700 ease-in-out relative overflow-hidden ${
+          scrolled ? "py-2" : "py-4"
+        } liquid-glass rounded-full`}
+      >
+        <div className="absolute inset-0 animate-liquid pointer-events-none" />
         <Link
           href="/"
-          className="text-2xl font-bold text-primary hover:text-accent transition-colors italic"
+          onClick={scrollToTop}
+          className="text-3xl font-black text-primary hover:text-primary/50 transition-colors font-doto tracking-tighter cursor-pointer"
         >
           Sangramjit
         </Link>
@@ -29,7 +56,7 @@ export function Header() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               {item.label}
             </a>
@@ -92,7 +119,8 @@ export function Header() {
       </nav>
 
       {isOpen && (
-        <div className="border-t border-border bg-background px-6 py-4 md:hidden">
+        <div className="absolute top-full left-0 right-0 mt-4 px-6 py-8 md:hidden rounded-[2.5rem] liquid-glass animate-in fade-in zoom-in-95 duration-500 ease-out overflow-hidden">
+          <div className="absolute inset-0 animate-liquid pointer-events-none opacity-50" />
           <div className="flex flex-col gap-4">
             {navItems.map((item) => (
               <a

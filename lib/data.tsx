@@ -1,9 +1,19 @@
-import { Layout, Layers, Code, Globe, Zap } from "lucide-react";
+import {
+  Layout,
+  Layers,
+  Code,
+  Globe,
+  Zap,
+  DollarSign,
+  CoinsIcon,
+  Coins,
+  BookAIcon,
+} from "lucide-react";
 import React from "react";
 export const portfolioData = {
   personalInfo: {
     name: "Sangramjit Dutta",
-    role: "Lead Software Engineer",
+    role: "Software Engineer",
     location: "Silchar, Assam, India",
     email: "sangramjitdutta@gmail.com",
     summary:
@@ -97,21 +107,26 @@ export const portfolioData = {
         "Padhho is an AI-powered book recommendation engine that curates reading lists based on your personality, mood, and reading patterns. Discover hidden gems, organize your library, and scan ISBNs—all in one secure, intelligent platform.",
       tags: ["Next.js", "PostgreSQL", "Google GenAI SDK", "Better Auth"],
       link: "https://padhho.vercel.app",
+      image:
+        "https://images.unsplash.com/photo-1544652478-6653e09f18a2?q=80&w=2070&auto=format&fit=crop",
       github: "",
-      icon: <Layout className="w-4 h-4" />,
+      icon: <BookAIcon className="w-4 h-4" />,
       variant: "chrome" as const,
     },
     {
-      title: "Codeclip",
-      subtitle: "AI Code Sharing",
+      title: "Omnix",
+      subtitle: "Web3 Agentic Chat App",
       description:
-        "AI-powered code sharing platform with instant code reviews, smart improvements, and auto-documentation. Multi-language support with syntax highlighting.",
-      tags: ["Next.js", "Clerk Auth", "Prisma", "PostgreSQL"],
-      link: "https://codeclip.vercel.app",
-      github: "https://github.com/100ngramjit/codeclip",
-      icon: <Code className="w-4 h-4" />,
-      variant: "safari" as const,
+        "Omnix is an AI-powered chat application that allows users to interact with AI agents to perform various tasks. It provides a seamless and secure way to interact with AI agents, allowing users to manage their digital assets and identities with ease.",
+      tags: ["TypeScript", "Next.js", "Tailwind", "Alchemy", "Web3Auth"],
+      link: "https://omnix.so",
+      image:
+        "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
+      github: "",
+      icon: <DollarSign className="w-4 h-4" />,
+      variant: "chrome" as const,
     },
+
     {
       title: "Kwiksave",
       subtitle: "High-Performance Media Engine",
@@ -119,6 +134,8 @@ export const portfolioData = {
         "A powerful open-source download engine for extracting high-fidelity media from Instagram, X, Facebook, and TikTok. Features asynchronous processing with FastAPI, real-time SSE progress tracking, and automated FFmpeg merging.",
       tags: ["FastAPI", "Python", "React", "FFmpeg", "Docker", "yt-dlp"],
       link: "https://kwiksave.netlify.app/",
+      image:
+        "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop",
       github: "https://github.com/100ngramjit/kwiksave",
       icon: <Zap className="w-4 h-4" />,
       variant: "chrome" as const,
@@ -130,6 +147,8 @@ export const portfolioData = {
         "Modern blogging platform with serverless architecture. Real-time rendering, Cloudflare Workers backend, and JWT-based authentication.",
       tags: ["Next.js", "TypeScript", "Cloudflare Workers"],
       link: "https://blogen-iota.vercel.app",
+      image:
+        "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop",
       github: "https://github.com/100ngramjit/blogen",
       icon: <Globe className="w-4 h-4" />,
       variant: "chrome" as const,
@@ -141,8 +160,37 @@ export const portfolioData = {
         "Posty is a next-generation API client designed for developers who value aesthetics and efficiency. Built with Tauri v2 and Rust, it delivers a lightning-fast experience with a minimal footprint, outperforming traditional Electron-based clients while maintaining a premium, modern interface.",
       tags: ["Tauri", "Rust", "React", "Tailwind"],
       link: "https://posttyy.vercel.app/",
+      image:
+        "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
       github: "",
       icon: <Layers className="w-4 h-4" />,
+      variant: "chrome" as const,
+    },
+
+    {
+      title: "Codeclip",
+      subtitle: "AI Code Sharing",
+      description:
+        "AI-powered code sharing platform with instant code reviews, smart improvements, and auto-documentation. Multi-language support with syntax highlighting.",
+      tags: ["Next.js", "Clerk Auth", "Prisma", "PostgreSQL"],
+      link: "https://codeclip.vercel.app",
+      image:
+        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop",
+      github: "https://github.com/100ngramjit/codeclip",
+      icon: <Code className="w-4 h-4" />,
+      variant: "safari" as const,
+    },
+    {
+      title: "Trikon",
+      subtitle: "Account abstracted Web3 SDK",
+      description:
+        "Trikon is the Web3 layer for the tokenized world. It provides a seamless and secure way to interact with blockchain applications, allowing users to manage their digital assets and identities with ease.",
+      tags: ["TypeScript", "Next.js", "Tailwind", "Alchemy", "Web3Auth"],
+      link: "https://trikon.io",
+      image:
+        "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
+      github: "",
+      icon: <Coins className="w-4 h-4" />,
       variant: "chrome" as const,
     },
   ],

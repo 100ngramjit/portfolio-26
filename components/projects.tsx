@@ -1,21 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserWindow } from "@/components/ui/mock-browser-window";
-import { ExternalLink, Github, Info } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Info,
+  Globe,
+  Loader2,
+  MousePointer2,
+} from "lucide-react";
 import { portfolioData } from "@/lib/data";
+import { motion, AnimatePresence } from "motion/react";
+import { ProjectPreviewOverlay } from "./project-preview-overlay";
 
 export function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showOverlay, setShowOverlay] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const { projects } = portfolioData;
 
   const activeProject = projects[activeIndex];
+
+  useEffect(() => {
+    // Reset states when project changes
+    setShowOverlay(false);
+    setIsLoaded(false);
+
+    // Clear existing timer
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    // Set new 6s timer for interaction overlay
+    timerRef.current = setTimeout(() => {
+      setShowOverlay(true);
+    }, 6000);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [activeIndex]);
 
   return (
     <section id="projects" className="border-b border-border bg-muted/20">
       <div className="mx-auto max-w-7xl px-6 py-24 md:px-8 md:py-32">
         <div className="flex flex-col gap-4 mb-16 text-center">
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-bold tracking-tight font-doto">
             Project Showcase
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto px-4">
@@ -45,14 +75,16 @@ export function Projects() {
                     <button
                       key={p.title}
                       onClick={() => setActiveIndex(i)}
-                      className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${
+                      className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all cursor-pointer font-black ${
                         i === activeIndex
-                          ? "bg-primary/10 text-primary border border-primary/20 shadow-sm"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                          ? "bg-primary/10 text-white border border-primary/20 shadow-sm"
+                          : "text-foreground hover:text-foreground hover:bg-muted/30"
                       }`}
                     >
-                      <div className="w-4 h-4 flex-shrink-0 opacity-80">{p.icon}</div>
-                      <span className="flex-1 truncate font-medium">
+                      <div className="w-4 h-4 flex-shrink-0 opacity-80">
+                        {p.icon}
+                      </div>
+                      <span className="flex-1 truncate font-medium font-doto">
                         {p.title}
                       </span>
                     </button>
@@ -62,17 +94,16 @@ export function Projects() {
                 {/* Concise Project Details Overlay - Desktop Sidebar */}
                 <div className="mt-auto border-t border-border/50 bg-background/50 p-5 space-y-4">
                   <div>
-                    <h4 className="text-sm font-bold text-foreground flex items-center gap-1.5">
-                      <Info className="w-3.5 h-3.5 text-accent" />
+                    <h4 className="text-sm font-bold text-foreground">
                       {activeProject.title}
                     </h4>
-                    <p className="text-[10px] text-muted-foreground mt-2 leading-relaxed line-clamp-3">
+                    <p className="text-[10px] text-muted-foreground mt-2 leading-relaxed">
                       {activeProject.description}
                     </p>
                   </div>
 
                   <div className="flex flex-wrap gap-1">
-                    {activeProject.tags.slice(0, 3).map((tag, i) => (
+                    {activeProject.tags.map((tag, i) => (
                       <span
                         key={i}
                         className="px-1.5 py-0.5 rounded bg-muted text-[10px] font-medium text-neutral-400 whitespace-nowrap"
@@ -106,20 +137,63 @@ export function Projects() {
               </div>
 
               {/* Main Content Area */}
-              <div className="flex-1 flex flex-col relative min-w-0">
+              <div className="flex-1 flex flex-col relative min-w-0 bg-zinc-950">
                 {/* Preview Frame */}
-                <div className="flex-1 relative bg-muted/5">
+                <div className="flex-1 relative">
+                  <AnimatePresence mode="wait">
+                    {!isLoaded && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-zinc-950"
+                      >
+                        <div className="absolute inset-0 opacity-20">
+                          <img
+                            src={activeProject.image}
+                            alt=""
+                            className="w-full h-full object-cover blur-sm"
+                          />
+                        </div>
+                        <div className="relative z-20 flex flex-col items-center gap-4 text-center px-6">
+                          <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center animate-pulse">
+                            <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                          </div>
+                          <div>
+                            <h5 className="text-white font-bold font-doto">
+                              Loading Preview...
+                            </h5>
+                            <p className="text-xs text-zinc-200 mt-1 max-w-[200px]">
+                              Attempting to connect to{" "}
+                              {new URL(activeProject.link).hostname}
+                            </p>
+                          </div>
+                          <a
+                            href={activeProject.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 px-6 py-2.5 bg-primary text-primary-foreground rounded-full text-xs font-bold transition-all flex items-center gap-2 hover:scale-105"
+                          >
+                            Visit Website <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   <iframe
-                    src={
-                      activeProject.title === "Codeclip" ||
-                      activeProject.link.includes("github.com")
-                        ? `/api/preview?url=${encodeURIComponent(activeProject.link)}`
-                        : activeProject.link
-                    }
-                    className="w-full h-full border-0 absolute inset-0 bg-white dark:bg-zinc-950"
+                    src={activeProject.link}
+                    className={`w-full h-full border-0 absolute inset-0 bg-white dark:bg-zinc-950 transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
                     title={activeProject.title}
                     key={activeProject.link}
                     loading="lazy"
+                    onLoad={() => setIsLoaded(true)}
+                  />
+
+                  {/* 10s Interaction Overlay (Separate Component) */}
+                  <ProjectPreviewOverlay
+                    isVisible={showOverlay}
+                    link={activeProject.link}
                   />
                 </div>
               </div>
@@ -129,14 +203,18 @@ export function Projects() {
 
         {/* Mobile View - Horizontal Scrollable Cards */}
         <div className="md:hidden mt-4">
-          <div 
+          <div
             className="flex overflow-x-auto pb-12 gap-5 snap-x snap-mandatory no-scrollbar px-4 -mx-4"
             onScroll={(e) => {
               const target = e.currentTarget;
               const scrollPosition = target.scrollLeft;
               const cardWidth = target.offsetWidth * 0.85 + 20; // 85vw + gap
               const nextIndex = Math.round(scrollPosition / cardWidth);
-              if (nextIndex !== activeIndex && nextIndex >= 0 && nextIndex < projects.length) {
+              if (
+                nextIndex !== activeIndex &&
+                nextIndex >= 0 &&
+                nextIndex < projects.length
+              ) {
                 setActiveIndex(nextIndex);
               }
             }}
@@ -157,7 +235,7 @@ export function Projects() {
                     </span>
                   </div>
 
-                  <h3 className="text-3xl font-black mb-4 tracking-tighter text-foreground">
+                  <h3 className="text-3xl font-black mb-4 tracking-tighter text-foreground font-doto">
                     {project.title}
                   </h3>
 
@@ -207,7 +285,9 @@ export function Projects() {
               <div
                 key={i}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === activeIndex ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
+                  i === activeIndex
+                    ? "w-6 bg-primary"
+                    : "w-1.5 bg-muted-foreground/30"
                 }`}
               />
             ))}
