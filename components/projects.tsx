@@ -13,6 +13,7 @@ import {
 import { portfolioData } from "@/lib/data";
 import { motion, AnimatePresence } from "motion/react";
 import { ProjectPreviewOverlay } from "./project-preview-overlay";
+import { GlareHover } from "@/components/ui/glare-hover";
 
 export function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -220,13 +221,16 @@ export function Projects() {
             }}
           >
             {projects.map((project, i) => (
-              <div
+              <GlareHover
                 key={i}
-                className="min-w-[85vw] snap-center p-6 rounded-[2.5rem] border border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl overflow-hidden relative group flex flex-col"
+                className="min-w-[85vw] snap-center overflow-hidden group flex flex-col"
+                background="transparent"
+                opacity={0.1}
               >
-                <div className="absolute top-0 right-0 p-6 opacity-10 scale-150 rotate-12">
-                  {project.icon}
-                </div>
+                <div className="p-6 h-full border border-border/50 bg-card/50 backdrop-blur-xl shadow-2xl relative flex flex-col">
+                  <div className="absolute top-0 right-0 p-6 opacity-10 scale-150 rotate-12">
+                    {project.icon}
+                  </div>
 
                 <div className="relative flex-1">
                   <div className="flex items-center gap-2 mb-4">
@@ -276,7 +280,8 @@ export function Projects() {
                   )}
                 </div>
               </div>
-            ))}
+            </GlareHover>
+          ))}
           </div>
 
           {/* Pagination Indicators for Mobile */}

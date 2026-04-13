@@ -110,7 +110,7 @@ export function Skills() {
               return (
                 <div
                   key={index}
-                  className="flex items-center gap-2.5 px-3 py-1.5 bg-[#0d1117] border border-[#30363d] rounded transition-all hover:bg-[#161b22] hover:border-[#8b949e] group"
+                  className="flex items-center gap-2.5 px-3 py-1.5 bg-[#0d1117] border border-[#30363d] transition-all hover:bg-[#161b22] hover:border-[#8b949e] group"
                 >
                   {iconData && (
                     <svg

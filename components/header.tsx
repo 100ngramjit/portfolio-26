@@ -1,20 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { portfolioData } from "@/lib/data";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navItems = [
     { label: "About", href: "#about" },
@@ -33,14 +24,10 @@ export function Header() {
 
   return (
     <header
-      className={`fixed left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl transition-all duration-500 ease-in-out ${
-        scrolled ? "top-4" : "top-6"
-      }`}
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-4xl transition-all duration-500 ease-in-out"
     >
       <nav
-        className={`flex items-center justify-between px-6 transition-all duration-700 ease-in-out relative overflow-hidden ${
-          scrolled ? "py-2" : "py-4"
-        } liquid-glass rounded-full`}
+        className="flex items-center justify-between px-6 py-2 transition-all duration-700 ease-in-out relative overflow-hidden liquid-glass rounded-full"
       >
         <div className="absolute inset-0 animate-liquid pointer-events-none" />
         <Link
