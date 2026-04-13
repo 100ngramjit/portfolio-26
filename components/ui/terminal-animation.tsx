@@ -357,13 +357,13 @@ export function TerminalAnimationRoot({
         if (charIndex <= command.length) {
           setCommandTyped(command.slice(0, charIndex))
           charIndex++
-          const t = setTimeout(typeCommand, 25 + Math.random() * 35)
+          const t = setTimeout(typeCommand, 15 + Math.random() * 20)
           timeoutRef.current.push(t)
         } else {
           const t = setTimeout(() => {
             setIsTypingCommand(false)
             showLines(0)
-          }, 250)
+          }, 150)
           timeoutRef.current.push(t)
         }
       }
@@ -382,7 +382,7 @@ export function TerminalAnimationRoot({
         }
       }
 
-      const t = setTimeout(typeCommand, 300)
+      const t = setTimeout(typeCommand, 100)
       timeoutRef.current.push(t)
     },
     [clearTimeouts, hideCursorOnComplete, tabs]

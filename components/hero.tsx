@@ -13,6 +13,7 @@ import {
   TerminalAnimationTabTrigger,
   type TabContent,
 } from "@/components/ui/terminal-animation";
+import { GithubCalendar } from "./ui/github-calendar";
 
 const { personalInfo } = portfolioData;
 
@@ -24,8 +25,10 @@ const heroTabs: TabContent[] = [
       { text: " ", delay: 100 },
       {
         text: `TITLE:${personalInfo.role} building exceptional digital experiences`,
-        delay: 400,
+        delay: 200,
       },
+      { text: " ", delay: 50 },
+      { text: `DESC:${personalInfo.summary}`, delay: 150 },
       { text: " ", delay: 100 },
       { text: `DESC:${personalInfo.summary}`, delay: 300 },
       { text: " ", delay: 200 },
@@ -36,17 +39,22 @@ const heroTabs: TabContent[] = [
     label: "whoami",
     command: "whoami",
     lines: [
-      { text: `NAME: ${personalInfo.name}`, delay: 100 },
-      { text: `BIO: ${personalInfo.role}`, delay: 100 },
-      { text: `LOC: ${personalInfo.location}`, delay: 100 },
-      { text: `EMAIL: ${personalInfo.email}`, delay: 100 },
-      { text: " ", delay: 200 },
+      { text: `NAME: ${personalInfo.name}`, delay: 50 },
+      { text: `BIO: ${personalInfo.role}`, delay: 50 },
+      { text: `LOC: ${personalInfo.location}`, delay: 50 },
+      { text: `EMAIL: ${personalInfo.email}`, delay: 50 },
+      { text: " ", delay: 100 },
       {
         text: `SKILLS: ${portfolioData.skills[1].skills.slice(0, 5).join(", ")}`,
         color: "text-primary",
-        delay: 100,
+        delay: 50,
       },
     ],
+  },
+  {
+    label: "activity",
+    command: "curl https://github-contributions-api.deno.dev/100ngramjit.json",
+    lines: [{ text: "GITHUB_CALENDAR", delay: 100 }],
   },
 ];
 
@@ -68,7 +76,7 @@ export function Hero() {
           hideCursorOnComplete={false}
           className="shadow-2xl rounded-xl overflow-hidden border border-white/5 bg-black/40 backdrop-blur-3xl"
         >
-          <TerminalAnimationWindow className="bg-transparent min-h-[380px] sm:min-h-[450px]">
+          <TerminalAnimationWindow className="bg-transparent h-[75vh] sm:h-[80vh]">
             {/* Custom Terminal Header */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-border/10 bg-muted/5">
               <div className="flex gap-2">
@@ -76,14 +84,14 @@ export function Hero() {
                 <div className="size-3 rounded-full bg-yellow-500/80 shadow-[0_0_8px_rgba(234,179,8,0.4)]" />
                 <div className="size-3 rounded-full bg-green-500/80 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
               </div>
-              <div className="text-[10px] sm:text-xs font-doto text-muted-foreground uppercase tracking-widest opacity-50">
+              <div className="text-[10px] sm:text-xs font-doto text-muted-foreground uppercase tracking-widest opacity-90">
                 {personalInfo.name.toLowerCase().replace(" ", "-")} — zsh —
                 112×36
               </div>
               <div className="w-12" /> {/* Spacer */}
             </div>
 
-            <TerminalAnimationContent className="p-6 sm:p-12 font-mono">
+            <TerminalAnimationContent className="p-4 sm:p-12 font-mono overflow-y-auto custom-scrollbar">
               <div className="flex items-center gap-3 text-neutral-400 mb-6">
                 <span className="text-accent text-base sm:text-lg">➜</span>
                 <span className="text-cyan-500">
@@ -126,6 +134,19 @@ export function Hero() {
                       <p className="text-base sm:text-xl text-neutral-400 leading-relaxed max-w-2xl">
                         {text}
                       </p>
+                    );
+                  }
+
+                  if (line.text === "GITHUB_CALENDAR") {
+                    return (
+                      <div className="py-4">
+                        <GithubCalendar
+                          username="100ngramjit"
+                          variant="city-lights"
+                          colorSchema="green"
+                          shape="squircle"
+                        />
+                      </div>
                     );
                   }
 
@@ -179,12 +200,12 @@ export function Hero() {
             </TerminalAnimationContent>
 
             <div className="mt-auto">
-              <TerminalAnimationTabList className="flex gap-px bg-black p-1 border-t border-white/5">
+              <TerminalAnimationTabList className="flex gap-px p-1 border-t border-white/5">
                 {heroTabs.map((tab, index) => (
                   <TerminalAnimationTabTrigger
                     key={tab.label}
                     index={index}
-                    className="flex-1 px-2 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.2em] font-doto transition-all data-[state=active]:bg-white/10 data-[state=active]:text-white data-[state=active]:font-bold text-foreground hover:text-neutral-400 hover:bg-white/5 rounded-xl"
+                    className="flex-1 px-2 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] uppercase tracking-[0.1em] sm:tracking-[0.2em] transition-all data-[state=active]:bg-white/10 data-[state=active]:text-white data-[state=active]:font-bold text-foreground hover:text-neutral-400 hover:bg-white/5 cursor-pointer "
                   >
                     {tab.label}
                   </TerminalAnimationTabTrigger>
