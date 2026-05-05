@@ -162,7 +162,7 @@ export const portfolioData = {
       link: "https://posttyy.vercel.app/",
       image:
         "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
-      github: "",
+      github: "https://github.com/100ngramjit/posty",
       icon: <Layers className="w-4 h-4" />,
       variant: "chrome" as const,
     },
