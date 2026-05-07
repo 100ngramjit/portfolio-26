@@ -119,7 +119,7 @@ export const portfolioData = {
       description:
         "Omnix is an AI-powered chat application that allows users to interact with AI agents to perform various tasks. It provides a seamless and secure way to interact with AI agents, allowing users to manage their digital assets and identities with ease.",
       tags: ["TypeScript", "Next.js", "Tailwind", "Alchemy", "Web3Auth"],
-      link: "https://omnix.so",
+      link: "https://demo.omnix.so",
       image:
         "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
       github: "",
@@ -186,7 +186,7 @@ export const portfolioData = {
       description:
         "Trikon is the Web3 layer for the tokenized world. It provides a seamless and secure way to interact with blockchain applications, allowing users to manage their digital assets and identities with ease.",
       tags: ["TypeScript", "Next.js", "Tailwind", "Alchemy", "Web3Auth"],
-      link: "https://trikon.io",
+      link: "https://demo.trikon.io",
       image:
         "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
       github: "",
