@@ -8,6 +8,7 @@ import {
   CoinsIcon,
   Coins,
   BookAIcon,
+  Dumbbell,
 } from "lucide-react";
 import React from "react";
 export const portfolioData = {
@@ -119,7 +120,7 @@ export const portfolioData = {
       description:
         "Omnix is an AI-powered chat application that allows users to interact with AI agents to perform various tasks. It provides a seamless and secure way to interact with AI agents, allowing users to manage their digital assets and identities with ease.",
       tags: ["TypeScript", "Next.js", "Tailwind", "Alchemy", "Web3Auth"],
-      link: "https://demo.omnix.so",
+      link: "https://omnix.so",
       image:
         "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
       github: "",
@@ -186,11 +187,24 @@ export const portfolioData = {
       description:
         "Trikon is the Web3 layer for the tokenized world. It provides a seamless and secure way to interact with blockchain applications, allowing users to manage their digital assets and identities with ease.",
       tags: ["TypeScript", "Next.js", "Tailwind", "Alchemy", "Web3Auth"],
-      link: "https://demo.trikon.io",
+      link: "https://trikon.io",
       image:
         "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
       github: "",
       icon: <Coins className="w-4 h-4" />,
+      variant: "chrome" as const,
+    },
+    {
+      title: "Regimen",
+      subtitle: "AI Workout Planner",
+      description:
+        "Regimen is the AI Workout Planner that helps you create personalized workout plans tailored to your fitness goals and preferences.",
+      tags: ["TypeScript", "Next.js", "Tailwind", "Google GenAI SDK", "WorkOS"],
+      link: "https://regimen-three.vercel.app/",
+      image:
+        "https://images.unsplash.com/photo-1587620962725-abab7fe55159?q=80&w=2042&auto=format&fit=crop",
+      github: "https://github.com/100ngramjit/regimen",
+      icon: <Dumbbell className="w-4 h-4" />,
       variant: "chrome" as const,
     },
   ],
