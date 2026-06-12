@@ -74,7 +74,10 @@ export function Hero() {
           hideCursorOnComplete={false}
           className="shadow-2xl rounded-xl overflow-hidden border border-white/5 bg-black/40 backdrop-blur-3xl"
         >
-          <TerminalAnimationWindow className="bg-transparent h-[75vh] sm:h-[80vh]">
+          <TerminalAnimationWindow
+            className="bg-transparent h-auto"
+            minHeight="0"
+          >
             {/* Custom Terminal Header */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-border/10 bg-muted/5">
               <div className="flex gap-2">
@@ -89,27 +92,25 @@ export function Hero() {
               <div className="w-12" /> {/* Spacer */}
             </div>
 
-            <TerminalAnimationContent className="p-4 sm:p-12 font-mono overflow-y-auto custom-scrollbar">
-              <div className="flex items-center gap-3 text-neutral-400 mb-6">
+            <TerminalAnimationContent className="px-4 py-2 sm:px-12 sm:py-4 font-mono overflow-y-hidden">
+              <div className="flex items-center gap-3 text-neutral-400 mb-3">
                 <span className="text-accent text-base sm:text-lg">➜</span>
-                <span className="text-cyan-500">
-                  ~/{personalInfo.name.split(" ")[0].toLowerCase()}
-                </span>
+                <span className="text-cyan-500">~/home</span>
                 <span className="text-neutral-600">on</span>
                 <span className="text-purple-400">main</span>
               </div>
 
-              <TerminalAnimationCommandBar className="text-neutral-100 text-lg sm:text-2xl font-bold tracking-tight" />
+              <TerminalAnimationCommandBar className="text-neutral-100 text-sm sm:text-lg font-bold tracking-tight" />
 
               <TerminalAnimationOutput
-                className="mt-8 space-y-4"
+                className="mt-4 space-y-3"
                 renderLine={(line, index, visible) => {
                   if (!visible) return null;
 
                   if (line.text.startsWith("TITLE:")) {
                     const text = line.text.replace("TITLE:", "");
                     return (
-                      <h1 className="text-2xl sm:text-5xl font-black tracking-tighter text-neutral-100 leading-[1.1] font-doto">
+                      <h1 className="text-2xl sm:text-6xl font-black tracking-tighter text-neutral-100 leading-[1.1] font-doto">
                         {text.split(" ").map((word, i) => (
                           <span
                             key={i}
@@ -129,8 +130,8 @@ export function Hero() {
                   if (line.text.startsWith("DESC:")) {
                     const text = line.text.replace("DESC:", "");
                     return (
-                      <p className="text-base sm:text-xl text-neutral-400 leading-relaxed max-w-2xl">
-                        {text}
+                      <p className="text-xs sm:text-base text-neutral-400 leading-relaxed max-w-2xl">
+                        {text}uhg
                       </p>
                     );
                   }
@@ -150,7 +151,7 @@ export function Hero() {
 
                   if (line.text === "ACTIONS") {
                     return (
-                      <div className="flex flex-col sm:flex-row gap-4 mt-6 sm:mt-8 pt-2 sm:pt-4">
+                      <div className="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-5 pt-1 sm:pt-2">
                         <Link href="#contact">
                           <Button
                             size="lg"
